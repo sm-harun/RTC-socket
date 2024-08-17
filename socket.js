@@ -10,7 +10,8 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} disconnected`)
   })
-  socket.on("new-message", (newMessage) => {
-    socket.broadcast.emit("recieve-message", newMessage);
+
+  socket.on("new-message", (newMessage, type) => {
+    socket.broadcast.emit("recieve-message", newMessage, type);
   })
 })
