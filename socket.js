@@ -9,9 +9,14 @@ io.on("connection", socket => {
 
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} disconnected`)
-  })
+    socket.broadcast.emit("broad-disconnection", socket.id);
+  });
 
   socket.on("new-message", (newMessage, username) => {
     socket.broadcast.emit("recieve-message", newMessage, username);
-  })
+  });
+
+  socket.on("new-connection", (userId) => {
+    socket.broadcast.emit("broad-connection", userId);
+  });
 })
