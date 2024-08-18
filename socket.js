@@ -7,6 +7,10 @@ const io = require("socket.io")(3001, {
 io.on("connection", socket => {
   console.log(`User ${socket.id} connected`);
 
+  socket.on("new-connection", (userId) => {
+    socket.broadcast.emit("broad-connection", userId);
+  });
+
   socket.on("disconnect", () => {
     console.log(`User ${socket.id} disconnected`)
     socket.broadcast.emit("broad-disconnection", socket.id);
@@ -14,9 +18,5 @@ io.on("connection", socket => {
 
   socket.on("new-message", (newMessage, username) => {
     socket.broadcast.emit("recieve-message", newMessage, username);
-  });
-
-  socket.on("new-connection", (userId) => {
-    socket.broadcast.emit("broad-connection", userId);
   });
 })
