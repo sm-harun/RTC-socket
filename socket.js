@@ -19,4 +19,4 @@ io.on("connection", socket => {
   socket.on("new-message", (newMessage, username) => {
     socket.broadcast.emit("recieve-message", newMessage, username);
   });
-})
+});
